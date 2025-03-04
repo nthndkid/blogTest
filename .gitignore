@@ -1,0 +1,5 @@
+.env
+
+blogApp/__pycache__
+
+blogProject/__pycache__

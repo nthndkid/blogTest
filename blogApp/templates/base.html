@@ -1,0 +1,79 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Base Layout {% endblock title %}</title>
+    {% comment %} <link rel="stylesheet" href="{% static 'styles.css' %}"> {% endcomment %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary sticky-top">
+      <div class="container">
+        {% comment %} logo {% endcomment %}
+          <a class="navbar-brand fs-5" href="#">
+            <img src="{% static 'images/x-logo.jpg' %}" alt="logo" width="30" height="30" class="mx-2">
+            Blog Site</a>
+        {% comment %} Toggle  {% endcomment %}
+        <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        {% comment %} Sidebar {% endcomment %}
+        <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header border-bottom border-black">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              <img src="{% static 'images/x-logo.jpg' %}" alt="logo" width="30" height="30"></a>
+              Blog Site</h5>
+            <button type="button" class="btn-close btn-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+
+          {% comment %} Sidebar Body {% endcomment %}
+          <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
+            <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 my-2">
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="#">Home</a>
+              </li>
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="#">Posts</a>
+              </li>
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="#">Profile</a>
+              </li>
+            </ul>
+            {% comment %} Buttons {% endcomment %}
+            {% if user.is_authenticated %}
+              <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
+                <a class="btn btn-danger my-2" aria-current="page" href="{% url 'logout_user' %}">Logout</a>
+              </div>
+            {% else %}
+              <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
+                <a class="btn btn-secondary my-2" aria-current="page" href="{% url 'login_user' %}">Login</a>
+                <a class="btn btn-Success my-2" aria-current="page" href="{% url 'register_user' %}">Sign Up</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="container mt-4">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}
+
+      {% endblock content %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+body{
+    font-family:'Times New Roman', Times, serif
+}
+
+.navcolor{
+    background-color: #cd7d7d;
+}
+
+.login-button{
+    border-radius: 20px;
+}
